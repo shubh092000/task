@@ -70,7 +70,7 @@ resource "aws_iam_role_policy_attachment" "eks_cluster_policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
 }
 
-# Create EKS Cluster
+# Create EKS Cluster with vpc 
 resource "aws_eks_cluster" "eks" {
   name     = var.cluster_name
   role_arn = aws_iam_role.eks_cluster_role.arn
@@ -89,7 +89,7 @@ resource "aws_eks_cluster" "eks" {
 }
 
 
-# EKS Node Group Role
+# EKS Node Group Role 
 resource "aws_iam_role" "eks_node_group_role" {
   name = "eks-node-group-role"
 
@@ -114,7 +114,7 @@ resource "aws_iam_role_policy_attachment" "worker_node_AmazonEKS_CNI_Policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
 }
 
-# Create Node Group
+# Node Group 
 resource "aws_eks_node_group" "node_group" {
   cluster_name    = aws_eks_cluster.eks.name
   node_group_name = "${var.cluster_name}-node-group"
