@@ -29,21 +29,17 @@ jobs:
       uses: hashicorp/setup-terraform@v2
 
     - name: Terraform Init and Apply
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       working-directory: ./TF
       
       run: |
         terraform init
         terraform plan
+        terraform apply --auto-aprove
         
 
     - name: Configure kubectl
       run: aws eks update-kubeconfig --region us-west-2 --name my-eks-cluster --region=us-west-2
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      
 
     - name: Deploy with Helm
       working-directory: ./Helm
