@@ -43,4 +43,5 @@ jobs:
 
     - name: Deploy with Helm
       working-directory: ./helm
-      run: helm upgrade --install flask-docker-app ./helm-chart
+      run: helm upgrade --install flask-docker-app .
+
