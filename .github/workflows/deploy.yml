@@ -33,7 +33,7 @@ jobs:
       
       run: |
         terraform init
-        terraform apply -auto-approve
+        
 
     - name: Configure kubectl
       run: aws eks update-kubeconfig --region us-west-2 --name my-eks-cluster --region=us-west-2
@@ -42,4 +42,5 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
     - name: Deploy with Helm
-      run: helm upgrade --install flask-app ./helm-chart
+      working-directory: ./helm
+      run: helm upgrade --install flask-docker-app ./helm-chart
